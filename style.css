@@ -199,6 +199,13 @@ footer p {
   font-weight: bold;
   border-right: var(--border);
 }
+.controls__label--lower {
+  border-right: 0;
+}
+
+.controls__label--disable {
+  background-color: var(--color-dark);
+}
 
 .controls__detail {
   font-weight: bold;

@@ -2,6 +2,8 @@ const sizer = document.querySelector("#sizer");
 const start = document.querySelector("#start");
 const timer = document.querySelector("#timer");
 const answer = document.querySelector("#answer");
+const closeHigher = document.querySelector('.controls__label--higher')
+const closeLower = document.querySelector('.controls__label--lower')
 let maxWidthOfLine;
 let time = 0;
 let startTimer;
@@ -29,8 +31,15 @@ function handleStart() {
 }
 
 function handleAnswers() {
-  const userAnswer = answer.value;
-  if (`${userAnswer}px` === sizer.style.width) {
+  const userAnswer = parseInt(answer.value);
+  const sizerSize = parseInt(sizer.style.width.replace('px', ''));
+  if (userAnswer < sizerSize) {
+    closeHigher.classList.remove('controls__label--disable');
+    closeLower.classList.add('controls__label--disable');
+  } else if (userAnswer > sizerSize) {
+    closeHigher.classList.add('controls__label--disable');
+    closeLower.classList.remove('controls__label--disable');
+  } else if (userAnswer === sizerSize) {
     handleGameOver();
   }
 }
@@ -39,6 +48,8 @@ function handleGameOver() {
   start.classList.add('start--ready');
   start.removeAttribute('disabled');
   answer.setAttribute('disabled', 'true');
+  closeHigher.classList.remove('controls__label--disable');
+  closeLower.classList.remove('controls__label--disable');
   createLine();
   clearInterval(startTimer);
 }
